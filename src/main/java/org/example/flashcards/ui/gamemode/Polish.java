@@ -13,26 +13,26 @@ public class Polish extends Game {
     public void start() {
         while (true) {
             Entry entry = gameContract.getRandomEntry();
-            System.out.println(GREEN + "Word: " + entry.getPolish() + RESET);
+            System.out.println(GREEN + "Word: " + entry.polish() + RESET);
             System.out.println(GREEN + "Translation to German: " + RESET);
             String input = scanner.nextLine();
             if (input.equals("0")) {
                 System.out.println("Game closing...");
                 return;
-            } else if (input.equals(entry.getGerman())) {
+            } else if (input.equals(entry.german())) {
                 System.out.println(GREEN + "Correct!" + RESET);
             } else {
-                System.out.println(RED + "Wrong answer. The correct one is \"" + entry.getGerman() + "\"." + RESET);
+                System.out.println(RED + "Wrong answer. The correct one is \"" + entry.german() + "\"." + RESET);
             }
             System.out.println(GREEN + "Translation to English: " + RESET);
             input = scanner.nextLine();
             if (input.equals("0")) {
                 System.out.println("Game closing...");
                 return;
-            } else if (input.equals(entry.getEnglish())) {
+            } else if (input.equals(entry.english())) {
                 System.out.println(GREEN + "Correct!" + RESET);
             } else {
-                System.out.println(RED + "Wrong answer. The correct one is \"" + entry.getEnglish() + "\"." + RESET);
+                System.out.println(RED + "Wrong answer. The correct one is \"" + entry.english() + "\"." + RESET);
             }
         }
     }

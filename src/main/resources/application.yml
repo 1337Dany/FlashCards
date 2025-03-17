@@ -3,3 +3,6 @@ pl:
     pja:
       tpo02:
         filename: src/main/resources/wordlist.csv
+spring:
+  profiles:
+    active: default

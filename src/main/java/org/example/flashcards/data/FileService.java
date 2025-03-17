@@ -1,6 +1,7 @@
 package org.example.flashcards.data;
 
 import jakarta.annotation.PostConstruct;
+import org.example.flashcards.ui.profiles.formatters.EntryFormatter;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -9,10 +10,12 @@ import java.io.*;
 public class FileService implements IFileService, FileServiceDependency{
     private final String filename;
     private final IEntryRepository entryRepository;
+    private final EntryFormatter entryFormatter;
 
-    public FileService(String filename, IEntryRepository entryRepository) {
+    public FileService(String filename, IEntryRepository entryRepository, EntryFormatter entryFormatter) {
         this.filename = filename;
         this.entryRepository = entryRepository;
+        this.entryFormatter = entryFormatter;
     }
 
     @PostConstruct
@@ -24,7 +27,7 @@ public class FileService implements IFileService, FileServiceDependency{
             String line;
             while((line = reader.readLine()) != null){
                 String[] parts = line.split(",");
-                entryRepository.add(new Entry(parts[0], parts[1], parts[2]));
+                entryRepository.add(entryFormatter.format(new Entry(parts[0], parts[1], parts[2])));
             }
         }catch (IOException e) {
             e.printStackTrace();
@@ -32,9 +35,9 @@ public class FileService implements IFileService, FileServiceDependency{
     }
 
     @Override
-    public void saveData(IEntry entry) {
+    public void saveData(Entry entry) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
-            writer.write(entry.getPolish() + "," + entry.getEnglish() + "," + entry.getGerman());
+            writer.write(entry.polish() + "," + entry.english() + "," + entry.german());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +48,7 @@ public class FileService implements IFileService, FileServiceDependency{
     public void add(String entry) {
         String[] parts = entry.split(",");
         Entry tmp = new Entry(parts[0], parts[1], parts[2]);
-        entryRepository.add(tmp);
+        entryRepository.add(entryFormatter.format(tmp));
         saveData(tmp);
     }
 }
