@@ -1,15 +1,17 @@
 package org.example.flashcards.data;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:application.yml")
+@PropertySource("classpath:application.dictionary.yml")
+@ConfigurationProperties(prefix = "pl.edu.pja.tpo02")
 public class AppConfig {
 
-    @Value("${pl.edu.pja.tpo02.filename}")
+    @Value("${filename}")
     private String filename;
 
     @Bean
