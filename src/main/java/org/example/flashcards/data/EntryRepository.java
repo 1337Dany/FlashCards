@@ -3,10 +3,11 @@ package org.example.flashcards.data;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 @Repository
 public class EntryRepository implements IEntryRepository, RepositoryContract {
-    private final ArrayList<IEntry> entries = new ArrayList<>();
+    private final ArrayList<Entry> entries = new ArrayList<>();
 
     @Override
     public void add(Entry entry) {
@@ -20,5 +21,12 @@ public class EntryRepository implements IEntryRepository, RepositoryContract {
             allEntries += entry.getPolish() + " - " + entry.getEnglish() + " - " + entry.getGerman() + "\n";
         }
         return allEntries;
+    }
+
+    @Override
+    public Entry getRandomEntry() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(entries.size());
+        return entries.get(randomIndex);
     }
 }

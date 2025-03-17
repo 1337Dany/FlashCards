@@ -1,5 +1,6 @@
 package org.example.flashcards.domain;
 
+import org.example.flashcards.data.Entry;
 import org.example.flashcards.data.FileServiceDependency;
 import org.example.flashcards.data.RepositoryContract;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class FlashCardsController implements ControllerContract {
     @Override
     public void add(String entry) {
         fileServiceDependency.add(entry);
+    }
+
+    @Override
+    public Entry getRandomEntry() {
+        return repositoryContract.getRandomEntry();
     }
 }

@@ -1,70 +1,53 @@
 package org.example.flashcards.ui;
 
+import org.example.flashcards.data.Entry;
 import org.example.flashcards.domain.ControllerContract;
+import org.example.flashcards.ui.gamemode.English;
+import org.example.flashcards.ui.gamemode.GameContract;
+import org.example.flashcards.ui.gamemode.German;
+import org.example.flashcards.ui.gamemode.Polish;
+import org.example.flashcards.ui.menu.Menu;
+import org.example.flashcards.ui.menu.MenuCallback;
 import org.springframework.stereotype.Component;
 
-import java.util.Scanner;
-
 @Component
-public class View {
-    private ControllerContract flashCardsController;
-    private Scanner scanner = new Scanner(System.in);
-
-    private static final String RESET = "\u001B[0m";
-    private static final String RED = "\u001B[31m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String YELLOW = "\u001B[33m";
-    private static final String BLUE = "\u001B[34m";
+public class View implements MenuCallback, GameContract {
+    private final ControllerContract flashCardsController;
 
     public View(ControllerContract flashCardsController) {
         this.flashCardsController = flashCardsController;
 
-        init();
+        Menu menu = new Menu(this);
+        menu.init();
     }
 
-    private void init() {
-        System.out.println(GREEN + "Welcome to Flashcards!" + RESET);
-        System.out.println(YELLOW + "Please choose an option:" + RESET);
-
-        while (true) {
-            handleUserInput();
-        }
+    @Override
+    public String displayAll() {
+        return flashCardsController.displayAll();
     }
 
-    private void handleUserInput() {
-        System.out.println(YELLOW + "1. Start" + RESET);
-        System.out.println(YELLOW + "2. Display all entries" + RESET);
-        System.out.println(YELLOW + "3. Add entry" + RESET);
-        System.out.println(YELLOW + "4. Exit" + RESET);
-        System.out.print(BLUE + "Your choice: " + RESET);
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        switch (choice) {
-            case 1:
-                //addEntry();
-                break;
-            case 2:
-                displayAll();
-                break;
-            case 3:
-                addEntry();
-                break;
-            case 4:
-                System.out.println(RED + "Goodbye!" + RESET);
-                System.exit(0);
-                break;
-            default:
-                System.out.println(RED + "Invalid choice!" + RESET);
-        }
-    }
-
-    private void displayAll() {
-        System.out.println(flashCardsController.displayAll());
-    }
-
-    private void addEntry() {
-        System.out.print(BLUE + "Enter the entry (Polish, English, German): " + RESET);
-        String entry = scanner.nextLine();
+    @Override
+    public void addEntry(String entry) {
         flashCardsController.add(entry);
+    }
+
+    @Override
+    public void startPolishFlashcards() {
+        new Polish(this).start();
+    }
+
+    @Override
+    public void startEnglishFlashcards() {
+        new English(this).start();
+    }
+
+    @Override
+    public void startGermanFlashcards() {
+        new German(this).start();
+    }
+
+    @Override
+    public Entry getRandomEntry() {
+        return flashCardsController.getRandomEntry();
     }
 }
