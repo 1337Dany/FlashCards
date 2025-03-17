@@ -19,7 +19,7 @@ public class Menu extends Game {
     }
 
     private void menuInput() {
-        System.out.println(YELLOW + "1. Start" + RESET);
+        System.out.println(YELLOW + "1. Start and test" + RESET);
         System.out.println(YELLOW + "2. Display all entries" + RESET);
         System.out.println(YELLOW + "3. Add entry" + RESET);
         System.out.println(YELLOW + "4. Exit" + RESET);

@@ -17,20 +17,22 @@ public class English extends Game {
             System.out.println(YELLOW + "Word: " + entry.english() + RESET);
             System.out.println(GREEN + "Translation to German: " + RESET);
             String input = scanner.nextLine();
+            input = input.toLowerCase();
             if (input.equals("0")) {
                 System.out.println("Game closing...");
                 return;
-            } else if (input.equals(entry.german())) {
+            } else if (input.equals(entry.german().toLowerCase())) {
                 System.out.println(GREEN + "Correct!" + RESET);
             } else {
                 System.out.println(RED + "Wrong answer. The correct one is \"" + entry.german() + "\"." + RESET);
             }
             System.out.println(GREEN + "Translation to Polish: " + RESET);
             input = scanner.nextLine();
+            input = input.toLowerCase();
             if (input.equals("0")) {
                 System.out.println("Game closing...");
                 return;
-            } else if (input.equals(entry.polish())) {
+            } else if (input.equals(entry.polish().toLowerCase())) {
                 System.out.println(GREEN + "Correct!" + RESET);
             } else {
                 System.out.println(RED + "Wrong answer. The correct one is \"" + entry.polish() + "\"." + RESET);
