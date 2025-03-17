@@ -13,7 +13,8 @@ public class German extends Game {
     public void start() {
         while (true) {
             Entry entry = gameContract.getRandomEntry();
-            System.out.println(GREEN + "Word: " + entry.german() + RESET);
+            System.out.println();
+            System.out.println(YELLOW + "Word: " + entry.german() + RESET);
             System.out.println(GREEN + "Translation to Polish: " + RESET);
             String input = scanner.nextLine();
             if (input.equals("0")) {
