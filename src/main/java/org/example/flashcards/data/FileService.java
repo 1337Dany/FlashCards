@@ -32,9 +32,9 @@ public class FileService implements IFileService, FileServiceDependency{
     }
 
     @Override
-    public void saveData(IEntry entry) {
+    public void saveData(Entry entry) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
-            writer.write(entry.getPolish() + "," + entry.getEnglish() + "," + entry.getGerman());
+            writer.write(entry.polish() + "," + entry.english() + "," + entry.german());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();

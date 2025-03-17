@@ -17,8 +17,8 @@ public class EntryRepository implements IEntryRepository, RepositoryContract {
     @Override
     public String displayAll() {
         String allEntries = "";
-        for (IEntry entry : entries) {
-            allEntries += entry.getPolish() + " - " + entry.getEnglish() + " - " + entry.getGerman() + "\n";
+        for (Entry entry : entries) {
+            allEntries += entry.polish() + " - " + entry.english() + " - " + entry.german() + "\n";
         }
         return allEntries;
     }
