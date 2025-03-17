@@ -2,4 +2,4 @@ pl:
   edu:
     pja:
       tpo02:
-        filename: wordlist.csv
+        filename: src/main/resources/wordlist.csv

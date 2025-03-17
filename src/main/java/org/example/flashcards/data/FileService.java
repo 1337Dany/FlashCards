@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 
 @Component
-public class FileService implements IFileService {
+public class FileService implements IFileService, FileServiceDependency{
     private final String filename;
     private final IEntryRepository entryRepository;
 
@@ -15,9 +15,12 @@ public class FileService implements IFileService {
         this.entryRepository = entryRepository;
     }
 
+    @PostConstruct
     @Override
     public void loadData() {
+        System.out.println(filename);
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
+            reader.readLine(); // skip the first line
             String line;
             while((line = reader.readLine()) != null){
                 String[] parts = line.split(",");
@@ -36,5 +39,13 @@ public class FileService implements IFileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void add(String entry) {
+        String[] parts = entry.split(",");
+        Entry tmp = new Entry(parts[0], parts[1], parts[2]);
+        entryRepository.add(tmp);
+        saveData(tmp);
     }
 }
