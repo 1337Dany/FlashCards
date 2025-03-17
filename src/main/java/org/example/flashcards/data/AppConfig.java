@@ -13,7 +13,7 @@ public class AppConfig {
     private String filename;
 
     @Bean
-    public String fileService() {
+    public String fileName() {
         return filename;
         }
 }
