@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Profile("default")
 public class DefaultFormatter implements EntryFormatter{
     @Override
-    public Entry format(Entry entry) {
-        return new Entry(entry.polish(), entry.english(), entry.german());
+    public String format(String entry) {
+        return entry;
     }
 }

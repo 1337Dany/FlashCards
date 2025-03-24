@@ -26,8 +26,8 @@ public class FileService implements IFileService, FileServiceDependency{
             reader.readLine(); // skip the first line
             String line;
             while((line = reader.readLine()) != null){
-                String[] parts = line.split(",");
-                entryRepository.add(entryFormatter.format(new Entry(parts[0], parts[1], parts[2])));
+                String[] parts = entryFormatter.format(line).split(",");
+                entryRepository.add(new Entry(parts[0], parts[1], parts[2]));
             }
         }catch (IOException e) {
             e.printStackTrace();
@@ -46,9 +46,9 @@ public class FileService implements IFileService, FileServiceDependency{
 
     @Override
     public void add(String entry) {
-        String[] parts = entry.split(",");
+        String[] parts = entryFormatter.format(entry).split(",");
         Entry tmp = new Entry(parts[0], parts[1], parts[2]);
-        entryRepository.add(entryFormatter.format(tmp));
+        entryRepository.add(tmp);
         saveData(tmp);
     }
 }

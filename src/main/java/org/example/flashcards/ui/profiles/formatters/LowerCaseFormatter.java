@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LowerCaseFormatter implements EntryFormatter {
 
     @Override
-    public Entry format(Entry entry) {
-        return new Entry(entry.polish().toLowerCase(), entry.english().toLowerCase(), entry.german().toLowerCase());
+    public String format(String entry) {
+        return entry.toLowerCase();
     }
 }

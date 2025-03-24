@@ -2,10 +2,7 @@ package org.example.flashcards.ui;
 
 import org.example.flashcards.data.Entry;
 import org.example.flashcards.domain.ControllerContract;
-import org.example.flashcards.ui.gamemode.English;
-import org.example.flashcards.ui.gamemode.GameContract;
-import org.example.flashcards.ui.gamemode.German;
-import org.example.flashcards.ui.gamemode.Polish;
+import org.example.flashcards.ui.gamemode.*;
 import org.example.flashcards.ui.menu.Menu;
 import org.example.flashcards.ui.menu.MenuCallback;
 import org.springframework.stereotype.Component;
@@ -33,17 +30,17 @@ public class View implements MenuCallback, GameContract {
 
     @Override
     public void startPolishFlashcards() {
-        new Polish(this).start();
+        new FlashCards(this, "polish");
     }
 
     @Override
     public void startEnglishFlashcards() {
-        new English(this).start();
+        new FlashCards(this, "english");
     }
 
     @Override
     public void startGermanFlashcards() {
-        new German(this).start();
+        new FlashCards(this, "german");
     }
 
     @Override
