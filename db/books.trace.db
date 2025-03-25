@@ -115,3 +115,9 @@ create table Entry (id bigint not null, english varchar(255), german varchar(255
 2025-03-25 15:19:56.578206+01:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "Entry" already exists; SQL statement:
 create table Entry (id bigint not null, english varchar(255), german varchar(255), polish varchar(255), primary key (id)) [42101-232]
+2025-03-25 16:29:34.681745+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "Entry" already exists; SQL statement:
+create table Entry (id bigint not null, english varchar(255), german varchar(255), polish varchar(255), primary key (id)) [42101-232]
+2025-03-25 16:32:03.989750+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "Entry" already exists; SQL statement:
+create table Entry (id bigint not null, english varchar(255), german varchar(255), polish varchar(255), primary key (id)) [42101-232]
