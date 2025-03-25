@@ -11,12 +11,12 @@ import java.util.Random;
 
 @Repository
 public class EntryRepository implements RepositoryContract {
-    private final EntityManager entityManager;
+    private final EntryAutomationRepository entryAutomationRepository;
     private final EntryFormatter entryFormatter;
 
     @Autowired
-    public EntryRepository(EntityManager entityManager, EntryFormatter entryFormatter) {
-        this.entityManager = entityManager;
+    public EntryRepository(EntryAutomationRepository entryAutomationRepository, EntityManager entityManager, EntryFormatter entryFormatter) {
+        this.entryAutomationRepository = entryAutomationRepository;
         this.entryFormatter = entryFormatter;
     }
 
@@ -24,7 +24,7 @@ public class EntryRepository implements RepositoryContract {
     @Override
     public String displayAll() {
         String allEntries = "";
-        allEntries = entityManager.createQuery("SELECT e FROM Entry e", Entry.class).getResultList().toString();
+        allEntries = entryAutomationRepository.displayAll();
         return entryFormatter.format(allEntries);
     }
 
