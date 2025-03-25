@@ -47,4 +47,22 @@ public class EntryRepository implements RepositoryContract {
         Long randomId = ids.get(random.nextInt(ids.size()));
         return entityManager.find(Entry.class, randomId);
     }
+
+    @Transactional
+    @Override
+    public void delete(long entryId) {
+        Entry entry = entityManager.find(Entry.class, entryId);
+        entityManager.remove(entry);
+    }
+
+    @Transactional
+    @Override
+    public void modify(long entryId, String entry) {
+        Entry entryToUpdate = entityManager.find(Entry.class, entryId);
+        String[] parts = entry.split(",");
+        entryToUpdate.setPolish(parts[0]);
+        entryToUpdate.setEnglish(parts[1]);
+        entryToUpdate.setGerman(parts[2]);
+        entityManager.merge(entryToUpdate);
+    }
 }

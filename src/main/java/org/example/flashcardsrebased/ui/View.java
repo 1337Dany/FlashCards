@@ -6,7 +6,6 @@ import org.example.flashcardsrebased.ui.gamemode.*;
 import org.example.flashcardsrebased.ui.menu.Menu;
 import org.example.flashcardsrebased.ui.menu.MenuCallback;
 import org.example.flashcardsrebased.ui.profiles.formatters.EntryFormatter;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -45,6 +44,16 @@ public class View implements MenuCallback, GameContract {
     @Override
     public void startGermanFlashcards() {
         new FlashCards(this, entryFormatter).start("german");
+    }
+
+    @Override
+    public void deleteEntry(long entryId) {
+        flashCardsController.delete(entryId);
+    }
+
+    @Override
+    public void modifyEntry(long entryId, String entry) {
+        flashCardsController.modify(entryId, entry);
     }
 
     @Override

@@ -6,4 +6,6 @@ public interface MenuCallback {
     void startPolishFlashcards();
     void startEnglishFlashcards();
     void startGermanFlashcards();
+    void deleteEntry(long entryId);
+    void modifyEntry(long entryId, String entry);
 }

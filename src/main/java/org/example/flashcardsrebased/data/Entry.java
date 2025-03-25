@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Setter;
 
+@Setter
 @Entity
 public class Entry {
 
@@ -37,7 +39,7 @@ public class Entry {
 
     @Override
     public String toString() {
-        return String.format("| %-15s | %-15s | %-15s |\n",
-                polish, english, german);
+        return String.format("| %-10s | %-15s | %-15s | %-15s |\n",
+                id, polish, english, german);
     }
 }
