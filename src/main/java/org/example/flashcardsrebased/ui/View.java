@@ -4,12 +4,12 @@ import org.example.flashcardsrebased.data.Entry;
 import org.example.flashcardsrebased.domain.ControllerContract;
 import org.example.flashcardsrebased.ui.gamemode.*;
 import org.example.flashcardsrebased.ui.menu.Menu;
-import org.example.flashcardsrebased.ui.menu.MenuCallback;
+import org.example.flashcardsrebased.ui.menu.MenuContract;
 import org.example.flashcardsrebased.ui.profiles.formatters.EntryFormatter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class View implements MenuCallback, GameContract {
+public class View implements MenuContract, GameContract {
     private final ControllerContract flashCardsController;
     private final EntryFormatter entryFormatter;
 
@@ -54,6 +54,16 @@ public class View implements MenuCallback, GameContract {
     @Override
     public void modifyEntry(long entryId, String entry) {
         flashCardsController.modify(entryId, entry);
+    }
+
+    @Override
+    public Entry findEntry(String entryId) {
+        return flashCardsController.find(entryId);
+    }
+
+    @Override
+    public String displayAllSorted(String sortBy) {
+        return flashCardsController.displayAllSorted(sortBy);
     }
 
     @Override

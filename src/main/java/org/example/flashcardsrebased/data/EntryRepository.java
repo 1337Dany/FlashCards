@@ -65,4 +65,24 @@ public class EntryRepository implements RepositoryContract {
         entryToUpdate.setGerman(parts[2]);
         entryAutomationRepository.save(entryToUpdate);
     }
+
+    @Override
+    public Entry find(String regex) {
+        return entryAutomationRepository.findByRegex(regex);
+    }
+
+    @Override
+    public String displayAllSorted(String sortBy) {
+        return entryFormatter.format(
+                switch (sortBy) {
+                    case "sort by polish asc" -> entryAutomationRepository.findAllByOrderByPolishAsc().toString();
+                    case "sort by english asc" -> entryAutomationRepository.findAllByOrderByEnglishAsc().toString();
+                    case "sort by german asc" -> entryAutomationRepository.findAllByOrderByGermanAsc().toString();
+                    case "sort by polish desc" -> entryAutomationRepository.findAllByOrderByPolishDesc().toString();
+                    case "sort by english desc" -> entryAutomationRepository.findAllByOrderByEnglishDesc().toString();
+                    case "sort by german desc" -> entryAutomationRepository.findAllByOrderByGermanDesc().toString();
+                    default -> throw new AutomationException("Invalid sorting option");
+                }
+        );
+    }
 }

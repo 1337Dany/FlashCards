@@ -3,10 +3,10 @@ package org.example.flashcardsrebased.ui.menu;
 import org.example.flashcardsrebased.ui.Game;
 
 public class Menu extends Game {
-    private final MenuCallback menuCallback;
+    private final MenuContract menuContract;
 
-    public Menu(MenuCallback menuCallback) {
-        this.menuCallback = menuCallback;
+    public Menu(MenuContract menuContract) {
+        this.menuContract = menuContract;
     }
 
     public void init() {
@@ -19,12 +19,14 @@ public class Menu extends Game {
     }
 
     private void menuInput() {
-        System.out.println(YELLOW + "1. Start and test" + RESET);
+        System.out.println(YELLOW + "1.   Start and test" + RESET);
         System.out.println(YELLOW + "2. Display all entries" + RESET);
-        System.out.println(YELLOW + "3. Add entry" + RESET);
-        System.out.println(YELLOW + "4. Delete entry" + RESET);
-        System.out.println(YELLOW + "5. Modify entry" + RESET);
-        System.out.println(YELLOW + "6. Exit" + RESET);
+        System.out.println(YELLOW + "3.    Sort entries" + RESET);
+        System.out.println(YELLOW + "4.     Find entry" + RESET);
+        System.out.println(YELLOW + "5.      Add entry" + RESET);
+        System.out.println(YELLOW + "6.     Delete entry" + RESET);
+        System.out.println(YELLOW + "7.     Modify entry" + RESET);
+        System.out.println(YELLOW + "8.         Exit" + RESET);
         System.out.print(BLUE + "Your choice: " + RESET);
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -36,15 +38,21 @@ public class Menu extends Game {
                 displayAll();
                 break;
             case 3:
-                addEntry();
+                displaySorted(chooseSorting());
                 break;
             case 4:
-                deleteEntry();
+                findEntry();
                 break;
             case 5:
-                modifyEntry();
+                addEntry();
                 break;
             case 6:
+                deleteEntry();
+                break;
+            case 7:
+                modifyEntry();
+                break;
+            case 8:
                 System.out.println(RED + "Goodbye!" + RESET);
                 System.exit(0);
                 break;
@@ -62,13 +70,13 @@ public class Menu extends Game {
             case 0:
                 return;
             case 1:
-                menuCallback.startPolishFlashcards();
+                menuContract.startPolishFlashcards();
                 break;
             case 2:
-                menuCallback.startEnglishFlashcards();
+                menuContract.startEnglishFlashcards();
                 break;
             case 3:
-                menuCallback.startGermanFlashcards();
+                menuContract.startGermanFlashcards();
                 break;
             default:
                 System.out.println(RED + "Invalid choice!" + RESET);
@@ -76,21 +84,50 @@ public class Menu extends Game {
     }
 
     private void displayAll() {
-        System.out.println(menuCallback.displayAll());
+        System.out.println(menuContract.displayAll());
+    }
+
+    private void displaySorted(String sorting) {
+        System.out.println(menuContract.displayAllSorted(sorting));
+    }
+    private String chooseSorting() {
+        System.out.println(YELLOW + "Choose the sorting: 1.Polish 2.English 3.German" + RESET);
+        int choice = scanner.nextInt();
+        System.out.println(YELLOW + "Choose sorting: 1. Ascending 2. Descending" + RESET);
+        int order = scanner.nextInt();
+        switch (choice) {
+            case 0:
+                return null;
+            case 1:
+                return order == 1 ? "sort by polish asc" : "sort by polish desc";
+            case 2:
+                return order == 1 ? "sort by english asc" : "sort by english desc";
+            case 3:
+                return order == 1 ? "sort by german asc" : "sort by german desc";
+            default:
+                System.out.println(RED + "Invalid choice!" + RESET);
+        }
+        return null;
     }
 
     private void addEntry() {
         System.out.print(BLUE + "Enter the entry (Polish, English, German): " + RESET);
         String entry = scanner.nextLine();
-        menuCallback.addEntry(entry);
+        menuContract.addEntry(entry);
         System.out.println(GREEN + "Entry added!" + RESET);
+    }
+
+    private void findEntry(){
+        System.out.print(BLUE + "Enter the word: " + RESET);
+        String entryId = scanner.nextLine();
+        System.out.println(menuContract.findEntry(entryId));
     }
 
     private void deleteEntry(){
         System.out.print(BLUE + "Enter the entry ID: " + RESET);
         long entryId = scanner.nextLong();
         scanner.nextLine();
-        menuCallback.deleteEntry(entryId);
+        menuContract.deleteEntry(entryId);
         System.out.println(GREEN + "Entry deleted!" + RESET);
     }
 
@@ -100,7 +137,7 @@ public class Menu extends Game {
         scanner.nextLine();
         System.out.print(BLUE + "Enter the entry (Polish, English, German): " + RESET);
         String entry = scanner.nextLine();
-        menuCallback.modifyEntry(entryId, entry);
+        menuContract.modifyEntry(entryId, entry);
         System.out.println(GREEN + "Entry modified!" + RESET);
     }
 

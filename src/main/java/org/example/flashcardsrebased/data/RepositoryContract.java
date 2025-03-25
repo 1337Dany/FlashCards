@@ -6,4 +6,6 @@ public interface RepositoryContract {
     Entry getRandomEntry();
     void delete(long entryId);
     void modify(long entryId, String entry);
+    Entry find(String entryId);
+    String displayAllSorted(String sortBy);
 }

@@ -38,4 +38,14 @@ public class FlashCardsController implements ControllerContract {
     public void modify(long entryId, String entry) {
         repositoryContract.modify(entryId, entry);
     }
+
+    @Override
+    public Entry find(String entryId) {
+        return repositoryContract.find(entryId);
+    }
+
+    @Override
+    public String displayAllSorted(String sortBy) {
+        return repositoryContract.displayAllSorted(sortBy);
+    }
 }
