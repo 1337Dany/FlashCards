@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:application.dictionary.yml")
+@PropertySource("classpath:dictionary.yml")
 @ConfigurationProperties(prefix = "pl.edu.pja.tpo02")
 public class AppConfig {
 

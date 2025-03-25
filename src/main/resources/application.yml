@@ -1,3 +1,8 @@
 spring:
   profiles:
     active: default
+  application:
+    name: FlashCards
+  banner:
+    location: logo-app
+    charset: UTF-8

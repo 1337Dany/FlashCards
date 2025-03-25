@@ -1,34 +1,32 @@
 package org.example.flashcards.domain;
 
 import org.example.flashcards.data.Entry;
-import org.example.flashcards.data.FileServiceDependency;
-import org.example.flashcards.data.RepositoryContract;
-import org.example.flashcards.data.RepositoryManager;
+import org.example.flashcards.data.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class FlashCardsController implements ControllerContract {
-    private final RepositoryManager repositoryManager;
+    private final ServiceManager serviceManager;
 
     @Autowired
-    public FlashCardsController(RepositoryManager repositoryManager) {
-        this.repositoryManager = repositoryManager;
+    public FlashCardsController(ServiceManager serviceManager) {
+        this.serviceManager = serviceManager;
     }
 
 
     @Override
     public String displayAll() {
-        return repositoryManager.displayAll();
+        return serviceManager.displayAll();
     }
 
     @Override
     public void add(String entry) {
-        repositoryManager.add(entry);
+        serviceManager.add(entry);
     }
 
     @Override
     public Entry getRandomEntry() {
-        return repositoryManager.getRandomEntry();
+        return serviceManager.getRandomEntry();
     }
 }

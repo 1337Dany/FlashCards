@@ -1,13 +1,13 @@
 package org.example.flashcards.data;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class RepositoryManager {
+@Service
+public class ServiceManager {
     private final RepositoryContract repositoryContract;
     private final FileServiceDependency fileServiceDependency;
 
-    public RepositoryManager(RepositoryContract repositoryContract, FileServiceDependency fileServiceDependency) {
+    public ServiceManager(RepositoryContract repositoryContract, FileServiceDependency fileServiceDependency) {
         this.repositoryContract = repositoryContract;
         this.fileServiceDependency = fileServiceDependency;
     }
