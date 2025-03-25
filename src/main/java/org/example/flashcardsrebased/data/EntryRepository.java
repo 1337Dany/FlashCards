@@ -1,6 +1,5 @@
 package org.example.flashcardsrebased.data;
 
-import jakarta.persistence.EntityManager;
 import org.example.flashcardsrebased.data.exception.AutomationException;
 import org.example.flashcardsrebased.ui.profiles.formatters.EntryFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,8 @@ public class EntryRepository implements RepositoryContract {
     @Transactional
     @Override
     public String displayAll() {
-        String allEntries = "";
-        allEntries += entryAutomationRepository.findAll().toString();
-        return entryFormatter.format(allEntries);
+        List<Entry> allEntries = entryAutomationRepository.findAll();
+        return entryFormatter.format(allEntries.toString());
     }
 
     @Transactional
@@ -40,30 +38,31 @@ public class EntryRepository implements RepositoryContract {
     @Transactional
     @Override
     public Entry getRandomEntry() {
-        List<Long> ids = entryAutomationRepository.findAllEntryId();
-        if (ids.isEmpty()) {
-            return null; // или выбросить исключение, если нет записей
+        List<Entry> entries = entryAutomationRepository.findAll();
+        if (entries.isEmpty()) {
+            throw new AutomationException("No entries found");
         }
         Random random = new Random();
-        Long randomId = ids.get(random.nextInt(ids.size()));
-        return entryAutomationRepository.findById(randomId).orElseThrow();
+        return entries.get(random.nextInt(entries.size()));
     }
 
     @Transactional
     @Override
     public void delete(long entryId) {
-        Entry entry = entryAutomationRepository.findById(entryId).orElseThrow();
+        Entry entry = entryAutomationRepository.findById(entryId)
+                .orElseThrow(() -> new AutomationException("Entry not found"));
         entryAutomationRepository.delete(entry);
     }
 
     @Transactional
     @Override
     public void modify(long entryId, String entry) {
-        Entry entryToUpdate = entryAutomationRepository.findById(entryId).orElseThrow();
-        entryAutomationRepository.delete(entryToUpdate);
-
+        Entry entryToUpdate = entryAutomationRepository.findById(entryId)
+                .orElseThrow(() -> new AutomationException("Entry not found"));
         String[] parts = entry.split(",");
-
-        entryAutomationRepository.save(new Entry(parts[0], parts[1], parts[2]));
+        entryToUpdate.setPolish(parts[0]);
+        entryToUpdate.setEnglish(parts[1]);
+        entryToUpdate.setGerman(parts[2]);
+        entryAutomationRepository.save(entryToUpdate);
     }
 }

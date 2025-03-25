@@ -23,7 +23,12 @@ public class Entry {
         this.german = german;
     }
 
-    protected Entry() {} // for JPA only
+    protected Entry() {
+    } // for JPA only
+
+    public long id() {
+        return id;
+    }
 
     public String polish() {
         return polish;
