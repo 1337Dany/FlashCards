@@ -3,19 +3,19 @@ package org.example.flashcardsrebased.data;
 import org.example.flashcardsrebased.data.exception.AutomationException;
 import org.example.flashcardsrebased.ui.profiles.formatters.EntryFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Random;
 
-@Repository
-public class EntryRepository implements RepositoryContract {
+@Service
+public class EntryService implements RepositoryContract {
     private final EntryAutomationRepository entryAutomationRepository;
     private final EntryFormatter entryFormatter;
 
     @Autowired
-    public EntryRepository(EntryAutomationRepository entryAutomationRepository, EntryFormatter entryFormatter) {
+    public EntryService(EntryAutomationRepository entryAutomationRepository, EntryFormatter entryFormatter) {
         this.entryAutomationRepository = entryAutomationRepository;
         this.entryFormatter = entryFormatter;
     }

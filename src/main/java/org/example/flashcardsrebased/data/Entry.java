@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 public class Entry {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
     private String polish;
